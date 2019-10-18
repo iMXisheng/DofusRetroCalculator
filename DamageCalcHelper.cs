@@ -8,7 +8,7 @@ namespace CritCalc
     {
         public static double CalculateCriticalStrike(int finalCrit, int agiFinal)
         {
-            return (float)finalCrit * ((Math.E * 1.1) / Math.Log(agiFinal + 12));
+            return finalCrit * ((Math.E * 1.1) / Math.Log(agiFinal + 12));
         }
     }
 }

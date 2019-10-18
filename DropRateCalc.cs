@@ -11,7 +11,7 @@ namespace CritCalc
     {
         public static double CalculateDropChance(double characterProspectingInt, double dropProbability)
         {
-            return (dropProbability * (1+(characterProspectingInt/100)));
+            return (dropProbability * characterProspectingInt/100);
         }
     }
 }
