@@ -25,13 +25,13 @@ namespace CritCalc
 
                 if (questionResponse == 1)
                 {
-                    var baseCritical = (int)PromptUserForIntValue("Please enter Base Critical Strike chance for the spell/weapon");
-                    var equipCritical = (int)PromptUserForIntValue("Please enter your Equipment Critical Strike chance total");
+                    var baseCritical = PromptUserForIntValue("Please enter Base Critical Strike chance for the spell/weapon");
+                    var equipCritical = PromptUserForIntValue("Please enter your Equipment Critical Strike chance total");
 
-                    int agiFinal = (int)PromptUserForIntValue("Please enter your Agility");
-                    int finalCrit = baseCritical - equipCritical;
+                    var agiFinal = PromptUserForIntValue("Please enter your Agility");
+                    var finalCrit = baseCritical - equipCritical;
 
-                    var criticalResult = DamageCalcHelper.CalculateCriticalStrike(finalCrit, agiFinal);
+                    var criticalResult = (int)DamageCalcHelper.CalculateCriticalStrike(finalCrit, agiFinal);
                     criticalResult = Math.Min(Math.Max(criticalResult, 2), baseCritical);
 
                     if (agiFinal >= 0)
@@ -41,7 +41,7 @@ namespace CritCalc
                 }
                 else
                 {
-                    var dropProbability = PromptUserForIntValue("Please enter the drop probabilty");
+                    var dropProbability = PromptUserForDoubleValue("Please enter the drop probabilty");
                     var characterProspectingInt = PromptUserForIntValue("Please enter your Prospecting");
 
                     var dropRateResult = DropRateCalc.CalculateDropChance(characterProspectingInt, dropProbability);
@@ -50,13 +50,28 @@ namespace CritCalc
                     Write($"Your final drop chance is {dropRateResult}%");
                 }
 
-                exitCalculator = (int)PromptUserForIntValue("Press 1 to return to main menu or press 2 to exit.");
+                exitCalculator = PromptUserForIntValue("Press 1 to return to main menu or press 2 to exit.");
 
             } while (exitCalculator == 1);
         }
 
 
-        private static double PromptUserForIntValue(string message)
+        private static int PromptUserForIntValue (string message)
+        {
+            int value = 0;
+            string valueHolder = string.Empty;
+
+            do
+            {
+                Write(message);
+                valueHolder = Console.ReadLine();
+            }
+            while (!int.TryParse(valueHolder, out value));
+
+            return value;
+        }
+
+        private static double PromptUserForDoubleValue(string message)
         {
             double value = 0.00;
             string valueHolder = string.Empty;
